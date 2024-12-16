@@ -9,5 +9,6 @@ public class D06 {
         List<String> listaNomes = Arrays.asList("Daniel", "Thiago", "Pedro", "Julia", "Arthur");
         listaNomes.sort((x,y ) -> x.compareTo(y));
         System.out.println(listaNomes);
+
     }
 }
