@@ -1,9 +1,6 @@
 package br.com.alura.Screenmatch.Main;
 
-import br.com.alura.Screenmatch.model.DadosEpisodio;
-import br.com.alura.Screenmatch.model.DadosSerie;
-import br.com.alura.Screenmatch.model.DadosTemporada;
-import br.com.alura.Screenmatch.model.Episodio;
+import br.com.alura.Screenmatch.model.*;
 import br.com.alura.Screenmatch.service.ConsumoApi;
 import br.com.alura.Screenmatch.service.ConverteDados;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -84,7 +81,13 @@ public class Main{
     }
 
     private void listarSeriesBuscadas() {
-        dadosSeries.forEach(System.out::println);
+        List<Serie> series = dadosSeries.stream()
+                .map(d -> new Serie(d))
+                .collect(Collectors.toList());
+
+       series.stream()
+               .sorted(Comparator.comparing(Serie::getGenero))
+               .forEach(System.out::println);
     }
 
 
