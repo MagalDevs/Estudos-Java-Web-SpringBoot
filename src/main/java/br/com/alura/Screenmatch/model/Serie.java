@@ -2,6 +2,8 @@ package br.com.alura.Screenmatch.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.OptionalDouble;
 
 @Entity
@@ -23,6 +25,10 @@ public class Serie {
     private String atores;
     private String poster;
     private String sinopse;
+    @Transient
+    private List<Episodio> episodio = new ArrayList<>();
+
+    public Serie(){}
 
     public Serie(DadosSerie dados){
         this.titulo = dados.titulo();
@@ -34,48 +40,20 @@ public class Serie {
         this.sinopse = ConsultaGemini.obterTraducao(dados.sinopse()).trim();
     }
 
-    public long getId() {
-        return id;
+    public List<Episodio> getEpisodio() {
+        return episodio;
     }
 
-    public String getTitulo() {
-        return titulo;
+    public void setEpisodio(List<Episodio> episodio) {
+        this.episodio = episodio;
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
+    public String getSinopse() {
+        return sinopse;
     }
 
-    public Integer getTotalTemporadas() {
-        return totalTemporadas;
-    }
-
-    public void setTotalTemporadas(Integer totalTemporadas) {
-        this.totalTemporadas = totalTemporadas;
-    }
-
-    public Double getAvaliacao() {
-        return avaliacao;
-    }
-
-    public void setAvaliacao(Double avaliacao) {
-        this.avaliacao = avaliacao;
-    }
-
-    public Categoria getGenero() {
-        return genero;
-    }
-
-    public void setGenero(Categoria genero) {
-        this.genero = genero;
-    }
-
-    public String getAtores() {
-        return atores;
-    }
-
-    public void setAtores(String atores) {
-        this.atores = atores;
+    public void setSinopse(String sinopse) {
+        this.sinopse = sinopse;
     }
 
     public String getPoster() {
@@ -86,12 +64,52 @@ public class Serie {
         this.poster = poster;
     }
 
-    public String getSinopse() {
-        return sinopse;
+    public String getAtores() {
+        return atores;
     }
 
-    public void setSinopse(String sinopse) {
-        this.sinopse = sinopse;
+    public void setAtores(String atores) {
+        this.atores = atores;
+    }
+
+    public Categoria getGenero() {
+        return genero;
+    }
+
+    public void setGenero(Categoria genero) {
+        this.genero = genero;
+    }
+
+    public Double getAvaliacao() {
+        return avaliacao;
+    }
+
+    public void setAvaliacao(Double avaliacao) {
+        this.avaliacao = avaliacao;
+    }
+
+    public Integer getTotalTemporadas() {
+        return totalTemporadas;
+    }
+
+    public void setTotalTemporadas(Integer totalTemporadas) {
+        this.totalTemporadas = totalTemporadas;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     @Override

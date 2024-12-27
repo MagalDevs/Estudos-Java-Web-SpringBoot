@@ -1,12 +1,11 @@
 package br.com.alura.Screenmatch.Main;
 
 import br.com.alura.Screenmatch.model.*;
+import br.com.alura.Screenmatch.repository.SerieRepository;
 import br.com.alura.Screenmatch.service.ConsumoApi;
 import br.com.alura.Screenmatch.service.ConverteDados;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -18,6 +17,12 @@ public class Main{
     private final String API_KEY  = "&apikey=fc73cd7d";
 
     private List<DadosSerie> dadosSeries = new ArrayList<>();
+
+    private SerieRepository repository;
+
+    public Main(SerieRepository repository) {
+        this.repository = repository;
+    }
 
     public void exibeMenu() throws JsonProcessingException {
         var opcao = -1;
@@ -56,7 +61,9 @@ public class Main{
 
     private void buscarSerieWeb() throws JsonProcessingException {
         DadosSerie dados = getDadosSerie();
-        dadosSeries.add(dados);
+        Serie serie = new Serie(dados);
+        //dadosSeries.add(dados);
+        repository.save(serie);
         System.out.println(dados);
     }
 
@@ -81,14 +88,9 @@ public class Main{
     }
 
     private void listarSeriesBuscadas() {
-        List<Serie> series = dadosSeries.stream()
-                .map(d -> new Serie(d))
-                .collect(Collectors.toList());
-
+        List<Serie> series = repository.findAll();
        series.stream()
                .sorted(Comparator.comparing(Serie::getGenero))
                .forEach(System.out::println);
     }
-
-
 }
